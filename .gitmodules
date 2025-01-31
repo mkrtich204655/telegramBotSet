@@ -1,0 +1,6 @@
+[submodule "telegramBotAdmin"]
+	path = telegramBotAdmin
+	url = https://github.com/mkrtich204655/telegramBotAdmin
+[submodule "telegramBot"]
+	path = telegramBot
+	url = https://github.com/mkrtich204655/telegramBot

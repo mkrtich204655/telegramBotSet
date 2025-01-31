@@ -1,0 +1,41 @@
+services:
+  tba_db: 
+    image: mysql:8.0
+    container_name: tba_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  
+      MYSQL_DATABASE: cog                
+      MYSQL_USER: newroot               
+      MYSQL_PASSWORD: mypassword        
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+  tba_web:
+    build: ./telegramBotAdmin
+    container_name: tba-web
+    command: ["/bin/sh", "-c", "chmod +x /var/www/html/project/admin/entrypoint.sh && /var/www/html/project/admin/entrypoint.sh"]
+    environment:
+      - .env
+    volumes:
+      - ./telegramBotAdmin:/var/www/html/project/admin
+    ports:
+      - 8000:8000/tcp
+    depends_on:
+      - tba_db
+  tb_api:
+    build: ./telegramBot
+    container_name: tb-api
+    command: ["/bin/sh", "-c", "chmod +x /var/www/html/project/api/tb_api.sh && /var/www/html/project/api/tb_api.sh"]
+    volumes:
+      - ./telegramBot:/var/www/html/project/api
+    environment:
+      - .env
+    ports:
+      - 8080:8080
+    depends_on:
+      - tba_web
+volumes:
+  mysql_data:
+  tb_api:

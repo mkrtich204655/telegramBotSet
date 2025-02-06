@@ -1,7 +1,7 @@
 services:
   tba_db: 
     image: mysql:8.0
-    container_name: tba_db
+    container_name: tba-db
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword  
